@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:10.5  # Usa MariaDB 10.5
+    container_name: mariadb_container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootTest
+      MYSQL_DATABASE: test
+      MYSQL_USER: userTest
+      MYSQL_PASSWORD: passwordTest
+    ports:
+      - "3306:3306"
+    command:
+      --skip-host-cache --skip-name-resolve
+    volumes:
+      - db_mysqlTest:/var/lib/mysql
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql  # Monta init.sql dentro del contenedor
+
+volumes:
+  db_mysqlTest:
